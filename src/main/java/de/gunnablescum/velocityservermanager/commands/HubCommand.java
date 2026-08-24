@@ -44,7 +44,6 @@ public class HubCommand implements SimpleCommand {
     }
 
     public RegisteredServer getRandomLobby(){
-        RegisteredServer server = MySQL.getAllServerWithLobbyFlag().get(new SecureRandom().nextInt(ServerManager.lobbies.size())).getFromProxy();
-        return server;
+        return MySQL.getAllServerWithLobbyFlag().get(new SecureRandom().nextInt(ServerManager.lobbies.size())).getFromProxy();
     }
 }

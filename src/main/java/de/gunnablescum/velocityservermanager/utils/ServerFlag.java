@@ -30,6 +30,7 @@ public enum ServerFlag {
             case 4 -> DISABLED;
             case 5 -> LIMBO;
             case 9 -> PROXY_MANAGED;
+            case 13-> PROXY_MANAGED_LIMBO;
             default -> throw new IllegalArgumentException("No enum constant for bit value: " + bit);
         };
     }
