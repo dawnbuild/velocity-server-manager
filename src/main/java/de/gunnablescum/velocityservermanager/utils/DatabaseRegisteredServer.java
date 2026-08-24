@@ -129,6 +129,10 @@ public record DatabaseRegisteredServer(String name, String address, int port, by
         return hasFlag(PROXY_MANAGED);
     }
 
+    public boolean isProxyManagedLimbo(){
+        return hasFlag(PROXY_MANAGED_LIMBO);
+    }
+
     public boolean hasFlag(ServerFlag flag) {
         return (flags & flag.bit) == flag.bit;
     }

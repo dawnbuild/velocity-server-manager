@@ -165,6 +165,31 @@ public class MySQL {
         return List.of();
     }
 
+    public static List<DatabaseRegisteredServer> getAllServerWithLobbyFlag() {
+        List<DatabaseRegisteredServer> servers = new ArrayList<>();
+        try(
+                Connection connection= dataSource.getConnection();
+                PreparedStatement ps = connection.prepareStatement("SELECT * FROM servermanager_servers WHERE flags = ?");
+        ) {
+            ps.setByte(1,ServerFlag.LOBBY.bit);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                DatabaseRegisteredServer server = new DatabaseRegisteredServer(
+                        rs.getString("name"),
+                        rs.getString("ip"),
+                        rs.getInt("port"),
+                        rs.getByte("flags")
+                );
+                servers.add(server);
+            }
+            return servers;
+        } catch (SQLException e) {
+            ServerManager.getInstance().getLogger().error("VelocityServerManager: Something went wrong while connecting to the database, error details are below.");
+            e.printStackTrace();
+        }
+        return List.of();
+    }
+
     public static void createServer(String name, String ip, int port) {
         update("INSERT INTO servermanager_servers(name, ip, port, flags) VALUES(?, ?, ?, ?)", List.of(
                 new SQLStatementParameter(SQLStatementParameterType.STRING, 1, name),

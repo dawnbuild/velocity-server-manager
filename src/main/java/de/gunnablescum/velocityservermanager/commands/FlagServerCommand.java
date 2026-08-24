@@ -30,6 +30,7 @@ public class FlagServerCommand extends VSMCommand {
             .then(BrigadierCommand.requiredArgumentBuilder("flag", StringArgumentType.word())
                     .suggests((ctx, builder) -> {
                         builder.suggest("lobby");
+                        builder.suggest("proxy_limbo");
                         builder.suggest("restricted");
                         builder.suggest("disabled");
                         return builder.buildFuture();
@@ -47,6 +48,7 @@ public class FlagServerCommand extends VSMCommand {
 
                         switch (flagName) {
                             case "LOBBY" -> flagValue = ServerFlag.LOBBY;
+                            case "PROXY_LIMBO" -> flagValue = ServerFlag.PROXY_MANAGED_LIMBO;
                             case "RESTRICTED" -> flagValue = ServerFlag.RESTRICTED;
                             case "DISABLED" -> flagValue = ServerFlag.DISABLED;
                             default -> flagValue = null;
